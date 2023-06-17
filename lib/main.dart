@@ -24,7 +24,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String title = "Add count";
   int count = 0;
+
+  void onAdd() {
+    setState(() {
+      count += 1;
+      if (count > 0) {
+        title = "counting";
+      }
+    });
+  }
+
+  void onClear() {
+    setState(() {
+      count = 0;
+      title = "Clear count";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,20 +56,17 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Add Count"),
+          Text("$title"),
           Text(
             'Count: $count',
             style: TextStyle(fontSize: 20),
           ),
+          SizedBox(height: 16),
+          ElevatedButton(onPressed: onClear, child: Text("clear"))
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              count += 1;
-            });
-          },
-          child: Icon(Icons.add)),
+      floatingActionButton:
+          FloatingActionButton(onPressed: onAdd, child: Icon(Icons.add)),
     );
   }
 }
