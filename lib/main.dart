@@ -45,6 +45,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> renderList(int count) {
+      List<Widget> dataList = [];
+      for (var i = 0; i < count; i++) {
+        var menu = ListTile(
+          title: Text('menu ${i + 1}'),
+          subtitle: Text("submenu"),
+        );
+        dataList.add(menu);
+      }
+      return dataList;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -62,7 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(height: 16),
-          ElevatedButton(onPressed: onClear, child: Text("clear"))
+          ElevatedButton(onPressed: onClear, child: Text("clear")),
+          Expanded(
+              child: ListView.builder(
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return Text("item");
+                  })),
+          Expanded(
+              child: ListView(
+            children: renderList(15),
+          ))
         ],
       )),
       floatingActionButton:
