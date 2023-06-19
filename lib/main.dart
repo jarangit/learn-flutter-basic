@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/foodMenu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +27,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String title = "Add count";
   int count = 0;
+  List<FoodMenu> foodMenu = [
+    FoodMenu("Pizza", "250 US", "assets/images/image1.jpeg"),
+    FoodMenu("Chicken", "50 US", "assets/images/image2.jpeg"),
+  ];
 
   void onAdd() {
     setState(() {
@@ -41,6 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
       count = 0;
       title = "Clear count";
     });
+  }
+
+  void onSelectedMenu(FoodMenu value) {
+    print(value.name);
   }
 
   @override
@@ -77,14 +86,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(onPressed: onClear, child: Text("clear")),
           Expanded(
               child: ListView.builder(
-                  itemCount: 2,
+                  itemCount: foodMenu.length,
                   itemBuilder: (context, index) {
-                    return Text("item");
+                    FoodMenu food = foodMenu[index];
+                    return ListTile(
+                      leading: Image.asset(food.img),
+                      title: Text(food.name),
+                      subtitle: Text(food.price),
+                      onTap: () => onSelectedMenu(food),
+                    );
                   })),
-          Expanded(
-              child: ListView(
-            children: renderList(15),
-          ))
+          // Expanded(
+          //     child: ListView(
+          //   children: renderList(15),
+          // ))
         ],
       )),
       floatingActionButton:
