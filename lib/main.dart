@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/myCard.dart';
 import 'package:my_app/foodMenu.dart';
+import 'package:my_app/myLogin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -84,6 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 16),
           ElevatedButton(onPressed: onClear, child: Text("clear")),
+          MyCard(title: 'title'),
+          MyLogin(),
           Expanded(
               child: ListView.builder(
                   itemCount: foodMenu.length,
@@ -96,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () => onSelectedMenu(food),
                     );
                   })),
+
           // Expanded(
           //     child: ListView(
           //   children: renderList(15),
