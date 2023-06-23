@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/myCard.dart';
 import 'package:my_app/foodMenu.dart';
 import 'package:my_app/myLogin.dart';
+import 'package:my_app/services/index.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -52,6 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onSelectedMenu(FoodMenu value) {
     print(value.name);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialization tasks
+    getExchange();
   }
 
   @override
