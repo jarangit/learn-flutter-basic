@@ -3,6 +3,7 @@ import 'package:my_app/myCard.dart';
 import 'package:my_app/foodMenu.dart';
 import 'package:my_app/myLogin.dart';
 import 'package:my_app/services/index.dart';
+import 'package:my_app/types/exChangeRate.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     FoodMenu("Pizza", "250 US", "assets/images/image1.jpeg"),
     FoodMenu("Chicken", "50 US", "assets/images/image2.jpeg"),
   ];
+  late ExChangeRate _exchangeRateData;
 
   void onAdd() {
     setState(() {
@@ -54,11 +56,18 @@ class _MyHomePageState extends State<MyHomePage> {
     print(value.name);
   }
 
+  Future<void> onGetDataExChangeRate() async {
+    final res = await getExchange();
+    setState(() {
+      _exchangeRateData = res;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     // Initialization tasks
-    getExchange();
+    onGetDataExChangeRate();
   }
 
   @override
@@ -94,6 +103,24 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(height: 16),
           ElevatedButton(onPressed: onClear, child: Text("clear")),
           MyCard(title: 'title'),
+          FutureBuilder<ExChangeRate>(
+              future: getExchange(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  var res = snapshot.data;
+                  var rates = res?.rates;
+                  print({"this res ": snapshot.data});
+
+                  return Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [Text("thb to usd = ${rates?["USD"]}")],
+                    ),
+                  );
+                } else {
+                  return LinearProgressIndicator();
+                }
+              }),
           MyLogin(),
           Expanded(
               child: ListView.builder(

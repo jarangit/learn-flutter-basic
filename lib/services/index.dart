@@ -1,21 +1,24 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import '../types/exChangeRate.dart';
 
-Future<List> getExchange() async {
+Future<ExChangeRate> getExchange() async {
   const token = "c33356a999msh66c3bec0da47714p142a91jsn24c1b3083614";
   print("getting data api");
-  var res = await http.get(
-    Uri.parse("https://exchangerate-api.p.rapidapi.com/rapid/latest/USD"),
-    headers: {'X-RapidAPI-Key': '$token'},
-  );
-
-  if (res.statusCode == 200) {
-    print(res.body);
-    // แปลงข้อมูล JSON เป็น List<dynamic>
-    // List<dynamic> data = jsonDecode(res.body);
-    return [];
-  } else {
-    throw Exception('เกิดข้อผิดพลาดในการเรียก API');
+  try {
+    final res = await http.get(
+      Uri.parse("https://exchangerate-api.p.rapidapi.com/rapid/latest/THB"),
+      headers: {'X-RapidAPI-Key': '$token'},
+    );
+    if (res.statusCode == 200) {
+      // แปลงข้อมูล JSON เป็น List<dynamic>
+      ExChangeRate data = await exChangeRateFromJson(res.body);
+      return data;
+    } else {
+      throw Exception('เกิดข้อผิดพลาดในการเรียก API');
+    }
+  } catch (e) {
+    throw ('$e');
   }
 }
