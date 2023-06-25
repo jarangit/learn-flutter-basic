@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/loginScreen.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({super.key});
@@ -19,6 +20,11 @@ Future<String> loginSever() {
 class _MyLoginState extends State<MyLogin> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onLogin, child: const Text("Login"));
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+        child: const Text("Login"));
   }
 }
