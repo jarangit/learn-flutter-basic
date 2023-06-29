@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/loginScreen.dart';
+import 'package:my_app/screens/indexLogin.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({super.key});
@@ -22,8 +22,8 @@ class _MyLoginState extends State<MyLogin> {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const IndexLogin()));
         },
         child: const Text("Login"));
   }

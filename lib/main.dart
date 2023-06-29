@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     // Initialization tasks
-    onGetDataExChangeRate();
+    // onGetDataExChangeRate();
   }
 
   @override
@@ -103,24 +103,24 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(height: 16),
           ElevatedButton(onPressed: onClear, child: Text("clear")),
           MyCard(title: 'title'),
-          FutureBuilder<ExChangeRate>(
-              future: getExchange(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  var res = snapshot.data;
-                  var rates = res?.rates;
-                  print({"this res ": snapshot.data});
+          // FutureBuilder<ExChangeRate>(
+          //     future: getExchange(),
+          //     builder: (context, snapshot) {
+          //       if (snapshot.connectionState == ConnectionState.done) {
+          //         var res = snapshot.data;
+          //         var rates = res?.rates;
+          //         print({"this res ": snapshot.data});
 
-                  return Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [Text("thb to usd = ${rates?["USD"]}")],
-                    ),
-                  );
-                } else {
-                  return LinearProgressIndicator();
-                }
-              }),
+          //         return Padding(
+          //           padding: EdgeInsets.all(8.0),
+          //           child: Column(
+          //             children: [Text("thb to usd = ${rates?["USD"]}")],
+          //           ),
+          //         );
+          //       } else {
+          //         return LinearProgressIndicator();
+          //       }
+          //     }),
           MyLogin(),
           Expanded(
               child: ListView.builder(
